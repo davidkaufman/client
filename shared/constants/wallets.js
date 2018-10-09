@@ -26,6 +26,7 @@ const makeBuildingPayment: I.RecordFactory<Types._BuildingPayment> = I.Record({
   amount: '',
   currency: 'XLM', // FIXME: Use default currency?
   from: Types.noAccountID,
+  isRequest: false,
   publicMemo: new HiddenString(''),
   recipientType: 'keybaseUser',
   secretNote: new HiddenString(''),

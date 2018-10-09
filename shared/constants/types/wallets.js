@@ -80,6 +80,7 @@ export type _BuildingPayment = {
   amount: string,
   currency: string,
   from: string,
+  isRequest: boolean,
   publicMemo: HiddenString,
   recipientType: CounterpartyType,
   secretNote: HiddenString,
