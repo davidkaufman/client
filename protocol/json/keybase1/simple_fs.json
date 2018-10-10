@@ -695,7 +695,7 @@
       "request": [
         {
           "name": "src",
-          "type": "Path"
+          "type": "string"
         },
         {
           "name": "dest",

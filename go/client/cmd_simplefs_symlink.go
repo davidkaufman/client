@@ -1,4 +1,4 @@
-// Copyright 2015 Keybase, Inc. All rights reserved. Use of
+// Copyright 2018 Keybase, Inc. All rights reserved. Use of
 // this source code is governed by the included BSD license.
 
 package client
@@ -17,7 +17,7 @@ import (
 // CmdSimpleFSSymlink is the 'fs ln' command.
 type CmdSimpleFSSymlink struct {
 	libkb.Contextified
-	src  keybase1.Path
+	src  string
 	dest keybase1.Path
 }
 
@@ -56,11 +56,29 @@ func (c *CmdSimpleFSSymlink) ParseArgv(ctx *cli.Context) error {
 	if nargs != 2 {
 		return errors.New("ln requires exactly 2 arguments")
 	}
+	srcStr := ctx.Args()[0]
+	destStr := ctx.Args()[1]
 
-	var err error
-	var sources []keybase1.Path
-	sources, c.dest, err = parseSrcDestArgs(c.G(), ctx, "ln")
-	c.src = sources[0] // only one source, checked above
+	rev := int64(0)
+	timeString := ""
+	relTimeString := ""
+	destPath, err := makeSimpleFSPathWithArchiveParams(
+		destStr, rev, timeString, relTimeString)
+	if err != nil {
+		return err
+	}
+
+	destPathType, err := destPath.PathType()
+	if err != nil {
+		return err
+	}
+	if destPathType != keybase1.PathType_KBFS {
+		return errors.New("keybase fs ln: link must be a KBFS path")
+	}
+	c.dest = destPath
+
+	c.src = srcStr
+
 	return err
 }
 

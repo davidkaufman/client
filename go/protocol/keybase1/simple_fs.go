@@ -1106,8 +1106,8 @@ type SimpleFSCopyArg struct {
 }
 
 type SimpleFSSymlinkArg struct {
-	Src  Path `codec:"src" json:"src"`
-	Dest Path `codec:"dest" json:"dest"`
+	Src  string `codec:"src" json:"src"`
+	Dest Path   `codec:"dest" json:"dest"`
 }
 
 type SimpleFSCopyRecursiveArg struct {

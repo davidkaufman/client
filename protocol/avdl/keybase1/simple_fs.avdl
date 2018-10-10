@@ -254,7 +254,7 @@ protocol SimpleFS {
   /**
    Make a symlink of file or directory
    */
-  void simpleFSSymlink(Path src, Path dest);
+  void simpleFSSymlink(string src, Path dest);
 
   /**
    Begin recursive copy of directory 
